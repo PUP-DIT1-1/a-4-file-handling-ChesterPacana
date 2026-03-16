@@ -9,12 +9,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.util.List;
 
+
 public class Main {
     public static void main(String[] args){
         Scanner sc=new Scanner(System.in);
         String[] ArrF= new String[10];//Stores Files.
         boolean exit=false;
-        File f=new File("C:\\Users\\pacan\\Desktop\\Folder\\");//Path for files. Pacan is just user's name.
+        File f=new File("C:\\Users\\pacan\\Desktop\\Folder\\");
 
         while(!exit){
             System.out.println(">>>File Handler<<<");
@@ -62,7 +63,7 @@ public class Main {
                     System.out.println("Insert file name you would like to read: ");
                     String Rname= sc.next();
 
-                    try(BufferedReader reader=new BufferedReader(new FileReader("C:\\Users\\pacan\\Desktop\\Folder\\"+Rname))) {
+                    try(BufferedReader reader=new BufferedReader(new FileReader("C:\\Users\\pacan\\Desktop\\Folder\\"+Rname+".txt"))) {
                         String info;
                         while ((info = reader.readLine()) != null) {
                             System.out.println(info);
@@ -78,14 +79,32 @@ public class Main {
 
 
             } else if (choice==3) {
-                System.out.println("Insert .txt file name to delete: ");
-                String DelName= sc.nextLine();//to find and delete files
-                //FOR CODER: This is to use to delte file names
+
+                sc.nextLine(); // clear leftover newline
+
+                System.out.print("Insert .txt file name to delete: ");
+                String DelName = sc.nextLine();
+
+
+                File delfile=new File("C:\\Users\\pacan\\Desktop\\Folder\\"+DelName+".txt");
+
+                if(delfile.exists()){
+                    if (delfile.delete()){
+                        System.out.println("Successfully Deleted: "+DelName);
+                    }
+                    else {
+                        System.out.println("ERROR COULD NOT DELETE");
+                    }
+                }
+                else {
+                    System.out.println("FILE DOES NOT EXIST");
+                }
+
 
 
             } else if (choice==4) {
                 System.out.println("Please enter file that you want to Modify: ");
-                String mod= sc.nextLine();
+                String mod= sc.next();
 
             } else if (choice==5) {
                 System.out.println("UNSAVED PROGRESS WILL BE DELETED.");
@@ -95,9 +114,6 @@ public class Main {
 
 
         }
-       sc.close();
-    }
-}
        sc.close();
     }
 }
