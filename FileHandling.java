@@ -103,8 +103,42 @@ public class Main {
 
 
             } else if (choice==4) {
-                System.out.println("Please enter file that you want to Modify: ");
-                String mod= sc.next();
+                
+
+                    sc.nextLine();
+
+                    System.out.print("Enter file name to modify: ");
+                    String fileName = sc.nextLine();
+
+                    File file = new File("C:\\Users\\pacan\\Desktop\\Folder\\" + fileName + ".txt");
+
+                    if (!file.exists()) {
+                        System.out.println("File not found.");
+                        return;
+                    }
+
+                    System.out.println("--- Current Content ---");
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println(line);
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Error reading file.");
+                    }
+
+
+                    System.out.println("Enter new content (this will overwrite the file): ");
+                    String newContent = sc.nextLine();
+
+                    
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                        writer.write(newContent);
+                        System.out.println("File updated successfully.");
+                    } catch (IOException e) {
+                        System.out.println("Error writing to file.");
+                    }
+                
 
             } else if (choice==5) {
                 System.out.println("UNSAVED PROGRESS WILL BE DELETED.");
